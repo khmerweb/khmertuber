@@ -1,0 +1,742 @@
+<script>
+    import Ad from "./partials/Ad.svelte"
+    import jq from 'jquery'
+    let { data } = $props()
+    let posts = $state(data.posts[0])
+    const dark = 'brightness(20%)'
+    const normal = 'brightness(100%)'
+    const laodingVideo = 'NcQQVbioeZk'
+    let pageAmount = $state(Math.ceil(data.counts.news/data.settings.frontend))
+    let category = $state('news')
+    function parseVideos(posts){
+        let videos = []
+        let thumbs = []
+        for(let post of posts){
+            videos.push(JSON.parse(post.videos))
+            thumbs.push(post.thumb)
+        }
+        videos.thumbs = thumbs
+        return videos
+    }
+    
+    let latestNews = parseVideos(data.posts[0])
+    latestNews.category = 'news'
+    let latestMovies = parseVideos(data.posts[1])
+    latestMovies.category = 'movie'
+    let latestTravel = parseVideos(data.posts[2])
+    latestTravel.category = 'travel'
+    let latestGame = parseVideos(data.posts[3])
+    latestGame.category = 'game'
+    let latestSport = parseVideos(data.posts[4])
+    latestSport.category = 'sport'
+    let latestDoc = parseVideos(data.posts[5])
+    latestDoc.category = 'doc'
+    let latestDistraction = parseVideos(data.posts[6])
+    latestDistraction.category = 'distraction'
+    let latestMusic = parseVideos(data.posts[7])
+    latestMusic.category = 'music'
+    let latestFood = parseVideos(data.posts[8])
+    latestFood.category = 'food'
+    let latestWeb = parseVideos(data.posts[9])
+    latestWeb.category = 'web'
+    
+    let rawPlaylist = $state({
+        news: data.posts[0],
+        movie: data.posts[1],
+        travel: data.posts[2],
+        game: data.posts[3],
+        sport: data.posts[4],
+        doc: data.posts[5],
+        distraction: data.posts[6],
+        music: data.posts[7],
+        food: data.posts[8],
+        web: data.posts[9]
+    })
+
+    let videoPlaylists = $state({
+        news: latestNews,
+        movie: latestMovies,
+        travel: latestTravel,
+        game: latestGame,
+        sport: latestSport,
+        doc: latestDoc,
+        distraction: latestDistraction,
+        music: latestMusic,
+        food: latestFood,
+        web: latestWeb
+    })
+
+    let playlistThumbs = $state({
+        news: rawPlaylist['news'][0].thumb,
+        movie: rawPlaylist['movie'][0].thumb,
+        travel: rawPlaylist['travel'][0].thumb,
+        game: rawPlaylist['game'][0].thumb,
+        sport: rawPlaylist['sport'][0].thumb,
+        doc: rawPlaylist['doc'][0].thumb,
+        distraction: rawPlaylist['distraction'][0].thumb,
+        music: rawPlaylist['music'][0].thumb,
+        food: rawPlaylist['food'][0].thumb,
+        web: rawPlaylist['web'][0].thumb,
+    })
+
+    async function getRandomPlaylist(category, thumbs){
+		const response = await fetch(`/post/playlist/${category}`, {
+			method: 'POST',
+			body: JSON.stringify({ thumbs }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		const newPlaylist_ = await response.json()
+        posts = newPlaylist_
+        rawPlaylist[category] = newPlaylist_
+        playlistThumbs[category] = newPlaylist_[0].thumb
+        let newPlaylist = parseVideos(newPlaylist_)
+        newPlaylist.category = category
+        videoPlaylists[category] = newPlaylist
+        return newPlaylist
+	}
+
+    async function newPlaylist(event){
+        player.unMute()
+        if(player.playlist.category !== 'latest'){
+            player.loadVideoById(laodingVideo)
+            player.playlist = await getRandomPlaylist(player.playlist.category, player.playlist.thumbs) 
+        }
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+        player.part = 0
+        if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+            player.loadVideoById(initialVideoId)
+            player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+        }else{
+            player.index = 0
+            if(!(player.playlist[player.part].reversal)){
+                player.playlist[player.part].reverse()
+                player.playlist[player.part].reversal = true
+            }
+            player.loadVideoById(player.playlist[player.part][0].id)
+        }
+        
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+    }
+
+    function loadVideo(player, playlist){
+        if(playlist[0][0].type === "YouTubePlaylist"){
+            player.loadPlaylist({list:playlist[0][0].id,listType:'playlist',index:0})
+        }else{
+            playlist[0].reverse()
+            playlist[0].reversal = true
+            player.loadVideoById(playlist[0][0].id)
+        }
+        
+        jq(`.random-video button:nth-child(1) img`).css({'filter':dark})
+        jq(`.random-video button:nth-child(1) .playing`).css({'display':'block'})
+        jq(`.random-video button:nth-child(2) img`).css({'filter':dark})
+        jq(`.random-video button:nth-child(2) .playing`).css({'display':'block'})
+        jq('.Home .container .wrapper:nth-child(1) img').css({'filter':dark})
+        jq('.Home .container .wrapper:nth-child(1) p').css({'display':'block'})
+    }
+
+    function onPlayerReady(player) {
+        player1.part = 0
+        player1.index = 0
+        player1.thumb = 1
+        player1.label = 'ព័ត៌មាន'
+        player1.playlist = latestNews 
+        player2.part = 0
+        player2.index = 0
+        player2.thumb = 1
+        player2.label = 'ភាពយន្ត'
+        player2.playlist = latestMovies 
+        
+        if(player === "player1"){
+            loadVideo(player1, latestNews)
+        }else{
+            loadVideo(player2, latestMovies)
+        }
+    }
+
+    function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
+        if(obj){posts = obj}
+        if(label){player.label = label}
+        if(playlist){player.playlist = playlist}
+        pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
+        if(player.playlist.category === 'latest'){
+            category = 'news'
+        }else{
+            category = player.playlist.category
+        }
+        if((player.playlist.category === 'latest') || (player.playlist.category === 'web')){
+            jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
+            jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
+        }
+        if(thumb){
+            jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
+            jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
+            player.thumb = thumb
+            jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':dark})
+            jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'block'})
+        }
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+        player.part = part
+        player.unMute()
+        if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+            player.loadVideoById(initialVideoId)
+            player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+            jq('.latest-video').html(player.label)
+        }else{
+            if(!(player.playlist[player.part].reversal)){
+                player.playlist[player.part].reverse()
+                player.playlist[player.part].reversal = true
+            }
+            player.loadVideoById(player.playlist[player.part][0].id)
+            jq('.latest-video').html(player.label)
+            
+        }
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+    }
+
+    function onPlayerError(event){
+        if(player.index + 1 < player.playlist[player.part].length){
+            player.index += 1
+            player.loadVideoById(player.playlist[player.part][player.index].id)
+        }else{
+            jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+            jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+            player.part += 1
+            if(player.part === player.playlist.length){
+                player.part = 0
+            }
+
+            if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+                player.loadVideoById(initialVideoId)
+                player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+            }else{
+                player.index = 0
+                if(!(player.playlist[player.part].reversal)){
+                    player.playlist[player.part].reverse()
+                    player.playlist[player.part].reversal = true
+                }
+                player.loadVideoById(player.playlist[player.part][0].id)
+            }
+            jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+            jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+        }
+    }
+
+    async function onPlayerStateChange(event) {   
+        if(event.data === YT.PlayerState.ENDED){
+            if(player.index + 1 < player.playlist[player.part].length){
+                player.index += 1
+                player.loadVideoById(player.playlist[player.part][player.index].id)
+                
+            }else{
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+                player.part += 1
+                if(player.part === player.playlist.length){
+                    if(player.playlist.category !== 'latest'){
+                        player.loadVideoById(laodingVideo)
+                        player.playlist = await getRandomPlaylist(player.playlist.category, player.playlist.thumbs)
+                    }
+                    player.part = 0
+                }
+
+                if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+                    player.loadVideoById(initialVideoId)
+                    player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+                }else{
+                    player.index = 0
+                    if(!(player.playlist[player.part].reversal)){
+                        player.playlist[player.part].reverse()
+                        player.playlist[player.part].reversal = true
+                    }
+                    player.loadVideoById(player.playlist[player.part][0].id)
+                }
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+            }
+        }
+    }
+
+    function nextPrevious(move){
+        player.unMute()
+        if(move === "next"){
+            if(player.index + 1 < player.playlist[player.part].length){
+                player.index += 1
+                player.loadVideoById(player.playlist[player.part][player.index].id)
+            }else{
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+                player.part += 1
+                if(player.part === player.playlist.length){
+                    player.part = 0
+                }
+
+                if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+                    player.loadVideoById(initialVideoId)
+                    player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+                }else{
+                    player.index = 0
+                    if(!(player.playlist[player.part].reversal)){
+                        player.playlist[player.part].reverse()
+                        player.playlist[player.part].reversal = true
+                    }
+                    player.loadVideoById(player.playlist[player.part][0].id)
+                }
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+            }
+        }else if(move === "previous"){
+            if(player.index > 0){
+                player.index -= 1
+                player.loadVideoById(player.playlist[player.part][player.index].id)
+            }else{
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+                player.part -= 1
+                if(player.part < 0){
+                    player.part = player.playlist.length - 1
+                }
+
+                if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+                    player.loadVideoById(initialVideoId)
+                    player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+                }else{
+                    player.index = 0
+                    if(!(player.playlist[player.part].reversal)){
+                        player.playlist[player.part].reverse()
+                        player.playlist[player.part].reversal = true
+                    }
+                    player.loadVideoById(player.playlist[player.part][0].id)
+                }
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+                jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
+            }
+        }
+    }
+
+    const ytPlayerId = 'youtube-player'
+    let initialVideoId = 'cdwal5Kw3Fc'
+    let player1, player2
+
+    
+    function load() {
+        player1 = new YT.Player('player1', {
+            height: '390',
+            width: '640',
+            videoId: initialVideoId,
+            playerVars: {
+                'cc_load_policy': 1,
+                'cc_lang_pref': 'en',
+                'playsinline': 1,
+                "enablejsapi": 1,
+                "mute": 1,
+                "autoplay": 1,
+                "rel": 0,
+            },
+            events: {
+                'onReady': onPlayerReady.bind(null, "player1"),
+                'onStateChange': onPlayerStateChange.bind(null, "player1"),
+                'onError': onPlayerError.bind(null, "player1")
+            }
+        })
+
+        player2 = new YT.Player('player2', {
+            height: '390',
+            width: '640',
+            videoId: initialVideoId,
+            playerVars: {
+                'cc_load_policy': 1,
+                'cc_lang_pref': 'en',
+                'playsinline': 1,
+                "enablejsapi": 1,
+                "mute": 1,
+                "autoplay": 1,
+                "rel": 0,
+            },
+            events: {
+                'onReady': onPlayerReady.bind(null, "player2"),
+                'onStateChange': onPlayerStateChange.bind(null, "player2"),
+                'onError': onPlayerError.bind(null, "player2")
+            }
+        })
+    }
+        
+    $effect(() => {
+        window.YT.ready(function() {
+            if (window.YT) {
+                load()
+            } else {
+                window.onYouTubeIframeAPIReady = load
+            }
+        })
+    })
+</script>
+
+<svelte:head>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</svelte:head>
+
+
+<section class="main region">
+    <div class="feature-post">
+        <div class="random-video">
+            <button  onclick={()=>changeCategory(videoPlaylists.news, 'ព័ត៌មាន', rawPlaylist.news, 1)}>
+                <img alt='' src={playlistThumbs.news} />
+                <p class="news-label">{data.counts.news} ព័ត៌មាន</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button  onclick={()=>changeCategory(videoPlaylists.movie, 'ភាពយន្ត​​​', rawPlaylist.movie, 1)}>
+                <img alt='' src={playlistThumbs.movie} />
+                <p class="news-label">{data.counts.movie} ភាពយន្ត​</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.travel, 'ដើរ​លេង​​​​​', rawPlaylist.travel, 2)}>
+                <img alt='' src={playlistThumbs.travel} />
+                <p class="movies-label">{data.counts.travel} ដើរ​លេង</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.doc, '​ឯកសារ​​​​​', rawPlaylist.doc, 5)}>
+                <img alt='' src={playlistThumbs.doc} />
+                <p class="movies-label">{data.counts.doc} ឯកសារ</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.web, '​គេហទំព័រ', rawPlaylist.web, 3)}>
+                <img alt='' src={playlistThumbs.web} />
+                <p class="movies-label">{data.counts.web} ​គេហទំព័រ</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.sport, '​កីឡា​​​', rawPlaylist.sport, 4)}>
+                <img alt='' src={playlistThumbs.sport} />
+                <p class="movies-label">{data.counts.sport} កីឡា</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 6)}>
+                <img alt='' src={playlistThumbs.food} />
+                <p class="news-label">{data.counts.food} ​មុខ​ម្ហូប</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.music, 'របាំ​តន្ត្រី​​​​​', rawPlaylist.music, 7)}>
+                <img alt='' src={playlistThumbs.music} />
+                <p class="news-label">{data.counts.music} របាំ​តន្ត្រី</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.game, '​ពិភព​និម្មិត​', rawPlaylist.game, 3)}>
+                <img alt='' src={playlistThumbs.game} />
+                <p class="movies-label">{data.counts.game} ពិភព​និម្មិត</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button onclick={()=>changeCategory(videoPlaylists.distraction, 'ល្បែងកំសាន្ត​​​​', rawPlaylist.distraction, 8)}>
+                <img alt='' src={playlistThumbs.distraction} />
+                <p class="news-label">{data.counts.distraction} ល្បែងកំសាន្ត​</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            
+        </div>
+    </div>
+
+    <div class="player-wrapper">
+        <div class="wrapper1">
+            <div id="player1"></div>
+            <div class="latest-video">ព័ត៌មាន</div>
+            <div class="channel-logo">
+                <img src="/images/siteLogo.png" alt=''/>
+            </div>
+            <div class="play-all1">
+                <button onclick={()=>nextPrevious('previous')}>វីដេអូមុន</button>
+                <button onclick={newPlaylist} class='new-playlist'>ដូរ​កំរង​វីដេអូ​</button>
+                <button onclick={()=>nextPrevious('next')}>វីដេអូបន្ទាប់</button>
+            </div>
+        </div>
+        <div class="wrapper2">
+            <div id="player2"></div>
+            <div class="latest-video">ភាពយន្ត</div>
+            <div class="channel-logo">
+                <img src="/images/siteLogo.png" alt=''/>
+            </div>
+            <div class="play-all2">
+                <button onclick={()=>nextPrevious('previous')}>វីដេអូមុន</button>
+                <button onclick={newPlaylist} class='new-playlist'>ដូរ​កំរង​វីដេអូ​</button>
+                <button onclick={()=>nextPrevious('next')}>វីដេអូបន្ទាប់</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!--
+<section class="Home region">
+    <div class="container">
+        {#each posts as post, index}
+            <div class="wrapper">
+                <button onclick={()=>changeCategory(false, false, false, false, index)}>
+                    <img src={post.thumb} alt=''/>
+                    {#if post.videos.length}
+                    <img class="play-icon" src="/images/play.png" alt=''/>
+                    {/if}
+                    <p>កំពុង​លេង...</p>
+                </button>
+                <div class="date">{(new Date(post.date)).toLocaleDateString('it-IT')}</div>
+                <button class="title" onclick={()=>changeCategory(false, false, false, false, index)}>
+                    {post.title}
+                </button>
+            </div>
+        {/each}
+    </div>
+    <div class="navigation">
+        <span>ទំព័រ </span>
+        <select onchange={(event)=>{document.location = `/${category}/${event.target.value}`}}>
+            {#each [...Array(pageAmount).keys()] as pageNumber}
+                <option>{pageNumber+1}</option>
+            {/each}
+        </select>
+        <span> នៃ {pageAmount}</span>
+    </div>
+</section>
+-->
+<style>
+    .random-video{
+        display: grid;
+        grid-template-columns: repeat(5, calc(20% - 8px));
+        grid-gap: 10px;
+        padding: 10px 0 0;
+    }
+    .random-video .wrapper{
+        grid-column: 2 / span 2;
+        grid-row: 2 / span 2;
+        position: relative;
+        padding-top: 53%;
+    }
+    .random-video button{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-top: 54.25%;
+        border: none;
+    }
+    .random-video button:hover{
+        cursor: pointer;
+        opacity: .7;
+    }
+    .random-video button img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .random-video button p{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgb(44, 44, 44);
+        color: white;
+        text-align: center;
+        font-family: Vidaloka, OdorMeanChey;
+        padding: 5px;
+        min-width: 90px;
+    }
+    .random-video button .playing{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: Vidaloka, OdorMeanChey;
+        color: orange;
+        display: none;
+    }
+    .random-video .latest-video{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: orange;
+    }
+    .random-video .channel-logo img{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 6%;
+    }
+    .random-video .wrapper .play-all{
+        position: relative;
+        bottom: 7px;
+        text-align: center;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap: 15px;
+    }
+    .random-video .wrapper .play-all button{
+        color: orange;
+        padding-top: 0;
+        width: auto;
+        background-color: transparent;
+        font-family: Vidaloka, OdorMeanChey;
+        border: none;
+    }
+    .random-video .wrapper .play-all:hover{
+        cursor: pointer;
+    }
+    .random-video .wrapper:hover .play-all{
+        visibility: visible;
+    }
+    .random-video .wrapper #youtube-player{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .player-wrapper{
+        display: grid;
+        grid-template-columns: repeat(2, calc(50% - 5px));
+        grid-gap: 10px;
+        padding: 10px 0;
+    }
+    .player-wrapper .wrapper1,
+    .player-wrapper .wrapper2{
+        position: relative;
+        padding-top: 53%;
+        overflow: hidden;
+    }
+    .player-wrapper .wrapper1 .latest-video,
+    .player-wrapper .wrapper2 .latest-video{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: orange;
+    }
+     
+    .player-wrapper .wrapper1 .channel-logo img, 
+    .player-wrapper .wrapper2 .channel-logo img{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 6%;
+    }
+    .player-wrapper .wrapper1 .play-all1,
+    .player-wrapper .wrapper2 .play-all2{
+        position: relative;
+        bottom: 7px;
+        text-align: center;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap: 15px;
+    }
+    
+    .player-wrapper .play-all1 button, 
+    .player-wrapper .play-all2 button{
+        color: orange;
+        padding-top: 0;
+        width: auto;
+        background-color: transparent;
+        font-family: Vidaloka, OdorMeanChey;
+        border: none;
+    }
+    .player-wrapper .play-all1:hover, 
+    .player-wrapper .play-all2:hover{
+        cursor: pointer;
+    }
+    .player-wrapper .wrapper1:hover .play-all1, 
+    .player-wrapper .wrapper2:hover .play-all2{
+        visibility: visible;
+    }
+    .player-wrapper #player1, 
+    .player-wrapper #player2{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--menu);
+    }
+
+
+    .Home .container{
+        display: grid;
+        grid-template-columns: repeat(4, calc(100% / 4 - 11.25px));
+        grid-gap: 30px 15px;
+        padding: 15px 0 30px;
+    }
+    .Home .container .wrapper button{
+        position: relative;
+        padding-top: 56.25%;
+        overflow: hidden;
+        width: 100%;
+        top: 0;
+        left: 0;
+        border: none;
+        text-align: left;
+        background: transparent;
+    }
+    .Home .container .wrapper .title{
+        color: var(--link);
+    }
+    .Home button:hover,
+    .Home .container .wrapper .title:hover{
+        cursor: pointer;
+        opacity: .7;
+    }
+    .Home .container .wrapper button img{
+        position: absolute;
+        width: 100%;
+        min-height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .Home .container .wrapper button .play-icon{
+        position: absolute;
+        width: auto;
+        min-height: auto;
+        width: 15%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .Home .container .wrapper button p{
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 2px 5px;
+        color: orange;
+        font-family: Vidaloka, OdorMeanChey;
+        display: none;
+        animation: blink 1s steps(2) infinite;
+    }
+    .Home .container .wrapper .title{
+        padding-top: 5px;
+        font-family: Vidaloka, OdorMeanChey;
+    }
+    .Home .navigation{
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    
+    @media only screen and (max-width: 600px){
+        .random-video{
+            grid-template-columns: 100%;
+            padding: 10px;
+        }
+        .random-video .wrapper{
+            grid-column: 1 / span 1;
+            grid-row: 1 / span 1;
+            padding-top: 51.2%;
+        }
+        .Home .container{
+            grid-template-columns: 100%;
+            padding: 30px 10px;
+        }
+    }   
+</style>
