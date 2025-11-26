@@ -12,10 +12,10 @@ class Post{
         return await db.collection('Post').insertOne(post)
     }
 
-    async getPost(c){
-        const db = c.get('db')
-        const _id = new ObjectId(c.req.param('id'))
-        const post = await db.collection('Post').findOne({_id })
+    async getPost(params){
+        const _id = new ObjectId(params.id)
+        let post = await db.collection('Post').findOne({_id })
+        post = {...post, _id: post._id.toString()}
         return post
     }
 
@@ -98,19 +98,25 @@ class Post{
         return posts
     }
 
-    async paginatePostsByCategory(c, amount){
-        const db = c.get('db')
-        const category = c.req.param("category")
-        const page = parseInt(c.req.param('page'))
-
-        const query = { categories: { $regex: category } }
-        let posts
-        if(category === "movies"){
-            posts = await db.collection('Post').aggregate([{ $match : {categories : { $regex: "movie" }}}, { $sample:{ size: amount }}])
+    async paginatePostsByCategory(params, amount){
+        const category = params.category
+        const page = parseInt(params.page)
+        let query
+        if(category === 'movies'){
+            query = { categories: { $regex: 'movie' }}
         }else{
-            posts = await db.collection('Post').find(query).sort({ date: -1 }).skip((page-1)*amount).limit(amount)
+            query = { categories: { $regex: category }}
         }
-        return posts.toArray()
+        const count = await this.count(query)
+        let items
+        if(category === "movies"){
+            items = await db.collection('Post').aggregate([{ $match : {categories : { $regex: "movie" }}}, { $sample:{ size: amount }}])
+        }else{
+            items = await db.collection('Post').find(query).sort({ date: -1 }).skip((page-1)*amount).limit(amount)
+        }
+        items = await items.toArray()
+        let posts = items.map(post => ({...post, _id: post._id.toString()}))
+        return { posts, count }
     }
 
     async getRandomPosts(c, amount, post){

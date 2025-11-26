@@ -89,12 +89,22 @@
     }
 
     function loadVideo(player, playlist){
-        if(playlist[0][0].type === "YouTubePlaylist"){
-            player.cuePlaylist({list:playlist[0][0].id,listType:'playlist',index:0})
+        if(player.label === 'news'){
+            if(playlist[0][0].type === "YouTubePlaylist"){
+                player.loadPlaylist({list:playlist[0][0].id,listType:'playlist',index:0})
+            }else{
+                playlist[0].reverse()
+                playlist[0].reversal = true
+                player.loadVideoById(playlist[0][0].id)
+            }
         }else{
-            playlist[0].reverse()
-            playlist[0].reversal = true
-            player.cueVideoById(playlist[0][0].id)
+            if(playlist[0][0].type === "YouTubePlaylist"){
+                player.cuePlaylist({list:playlist[0][0].id,listType:'playlist',index:0})
+            }else{
+                playlist[0].reverse()
+                playlist[0].reversal = true
+                player.cueVideoById(playlist[0][0].id)
+            }
         }
     }
 
@@ -104,43 +114,43 @@
         players[player].thumb = 1
 
         if(player === "news"){
-            players[player].label = 'ព័ត៌មាន'
+            players[player].label = 'news'
             players[player].playlist = latestNews
             loadVideo(players[player], latestNews)
         }else if(player === "movie"){
-            players[player].label = 'ភាពយន្ត'
+            players[player].label = 'movie'
             players[player].playlist = latestMovies
             loadVideo(players[player], latestMovies)
         }else if(player === "travel"){
-            players[player].label = 'ដើរ​លេង'
+            players[player].label = 'travel'
             players[player].playlist = latestTravel
             loadVideo(players[player], latestTravel)
         }else if(player === "doc"){
-            players[player].label = 'ឯកសារ'
+            players[player].label = 'doc'
             players[player].playlist = latestDoc
             loadVideo(players[player], latestDoc)
         }else if(player === "web"){
-            players[player].label = 'គេហទំព័រ'
+            players[player].label = 'web'
             players[player].playlist = latestWeb
             loadVideo(players[player], latestWeb)
         }else if(player === "sport"){
-            players[player].label = 'កីឡា'
+            players[player].label = 'sport'
             players[player].playlist = latestSport
             loadVideo(players[player], latestSport)
         }else if(player === "food"){
-            players[player].label = 'មុខ​ម្ហូប'
+            players[player].label = 'food'
             players[player].playlist = latestFood
             loadVideo(players[player], latestFood)
         }else if(player === "music"){
-            players[player].label = 'របាំ​តន្ត្រី'
+            players[player].label = 'music'
             players[player].playlist = latestMusic
             loadVideo(players[player], latestMusic)
         }else if(player === "game"){
-            players[player].label = 'ពិភព​និម្មិត'
+            players[player].label = 'game'
             players[player].playlist = latestGame
             loadVideo(players[player], latestGame)
         }else if(player === "distraction"){
-            players[player].label = 'ល្បែង​កំសាន្ត'
+            players[player].label = 'distraction'
             players[player].playlist = latestDistraction
             loadVideo(players[player], latestDistraction)
         }
@@ -290,7 +300,7 @@
                 'cc_lang_pref': 'en',
                 'playsinline': 1,
                 "enablejsapi": 1,
-                "mute": 0,
+                "mute": 1,
                 "autoplay": 1,
                 "rel": 0,
             },
@@ -509,6 +519,7 @@
 
     function changeVideo(playerID, part){
         const player = players[playerID]
+        player.unMute()
         jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
         jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
         player.part = part

@@ -5,12 +5,12 @@
     --background: #a4dcee;
     --background-light: #e7f7fb;
     --body: #161616;
-    --panel: lightgrey;
+    --panel: #18222b;
     --body-font: 14px/1.5 Vidaloka, OdorMeanChey;
     --link: silver;
     --menu: #18222b;
     --menu-active: #ee8395;
-    --playlist-part:rgb(175, 175, 175);
+    --playlist-part:#88160a;
     --playlist-color: black;
     --playlist-clicked: white;
     --playlist-clicked-bg: #cf3952;
