@@ -180,7 +180,7 @@
     display: inline-block;
 }
 :global(.share-button) {
-    background-color: rgb(13, 94, 126);
+    background-color: rgb(29, 145, 190);
     color: white;
     border-radius: 50%;
     width: 3em;       
