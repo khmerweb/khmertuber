@@ -765,7 +765,7 @@
     .player-wrapper .game,
     .player-wrapper .distraction{
         position: relative;
-        padding-top: 53%;
+        padding-top: 52.5%;
         overflow: hidden;
     }
     .player-wrapper .news .playlist,
@@ -819,6 +819,7 @@
         background: rgb(39, 39, 39);
         cursor: pointer;
     }
+    
     .player-wrapper .news .playlist button img,
     .player-wrapper .movie .playlist button img,
     .player-wrapper .travel .playlist button img,
@@ -953,6 +954,18 @@
         }
         .player-wrapper{
             grid-template-columns: 100%;
+        }
+        .player-wrapper .news,
+        .player-wrapper .movie,
+        .player-wrapper .travel,
+        .player-wrapper .doc,
+        .player-wrapper .web,
+        .player-wrapper .sport,
+        .player-wrapper .food,
+        .player-wrapper .music,
+        .player-wrapper .game,
+        .player-wrapper .distraction{
+            padding-top: 51%;
         }
     }   
 </style>
