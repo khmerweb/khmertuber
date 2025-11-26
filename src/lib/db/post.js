@@ -51,18 +51,10 @@ class Post{
         return await db.collection('Post').find().sort({ date: -1 }).skip((page-1)*amount).limit(amount).toArray()
     }
 
-    async searchPosts(c, q, amount){
-        const db = c.get('db')
-
-        let page
-        if(c.req.param('page')){
-            page = parseInt(c.req.param('page'))
-        }else{
-            page =  1
-        }
-        
+    async searchPosts(q, amount, page){
         const maxPosts = await db.collection('Post').find({title: {$regex: q, $options: "i"}}).sort({ date: -1 }).toArray()
-        const posts = maxPosts.slice((page-1)*amount, page*amount)
+        let posts = maxPosts.slice((page-1)*amount, page*amount)
+        posts = posts.map(post => ({...post, _id: post._id.toString()}))
         const length = maxPosts.length
         return { posts, length } 
     }
@@ -137,14 +129,9 @@ class Post{
                 )
             }
         }else{
-            let category = ''
-            if(post.categories.includes(',')){
-                const str = post.categories.split(',')
-                category = str[0]
-            }else{
-                category = post.categories
-            }
-
+            const str = post.categories.split(',')
+            let category = str[0]
+            
             results = await db.collection('Post').aggregate(
                 [{ $match : {categories: { $regex: category }, _id: {$ne: postExclude }} }, { $sample:{ size: amount }}]
             )

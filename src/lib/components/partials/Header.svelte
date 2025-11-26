@@ -14,7 +14,7 @@
                 <span><a href="/">{data.settings.siteTitle}</a></span>
             </div>
         </div>
-        <form method="POST" action="/search">
+        <form method="POST" action="/search?/search">
             <input type="text" name="q" placeholder="Search" />
             <input type="submit" value="ស្វែងរក" />
         </form>
