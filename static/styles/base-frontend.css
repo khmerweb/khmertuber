@@ -10,10 +10,10 @@
     --link: silver;
     --menu: #18222b;
     --menu-active: #ee8395;
-    --playlist-part:#88160a;
-    --playlist-color: black;
+    --playlist-part:#3f3f3f;
+    --playlist-color: rgb(230, 230, 230);
     --playlist-clicked: white;
-    --playlist-clicked-bg: #cf3952;
+    --playlist-clicked-bg: #88160a;
     --color: rgb(230, 230, 230);
 }
   

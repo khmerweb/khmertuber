@@ -10,9 +10,14 @@ export async function load({ params }) {
     const currentPage = parseInt(page)
     const lastPage = Math.ceil(count/settings.categories)
 
-    const title = category
-    let pageURL = ''
+    let title = ''
+    if(category === "game"){
+        title = "simulation"
+    }else{
+        title = category
+    }
 
+    let pageURL = ''
     if(category === 'national'){
         pageURL = 'news'
     }else if(category === 'global'){

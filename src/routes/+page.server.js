@@ -12,5 +12,6 @@ export async function load({}) {
         counts[counter] = posts[index].count
         index++
     }
-    return { settings, pageURL, posts, counts }    
+    const title = "ទំព័រ​ដើម"
+    return { settings, pageURL, posts, counts, title }    
 }

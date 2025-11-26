@@ -183,6 +183,13 @@
     background-color: blue;
     color: white;
     border-radius: 50%;
+    width: 3em;       
+    height: 3em;      
+    padding: 0;         
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.2em;
   }
 
 @media only screen and (max-width:600px){

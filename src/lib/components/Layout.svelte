@@ -14,6 +14,7 @@
     <Header {data} />
     <Menu {data} />
     <Ad />
+    <img style='display:none;' src={data.thumb} alt='' />
     {@render children(data)}
     <Footer />
 </scetion>
