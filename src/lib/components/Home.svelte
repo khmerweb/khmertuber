@@ -799,7 +799,8 @@
         display: grid;
         grid-template-columns: repeat(2, calc(50% - 7.5px));
         grid-gap: 15px;
-        padding: 15px 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
     .player-wrapper .news,
     .player-wrapper .movie,

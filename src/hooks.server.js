@@ -17,11 +17,15 @@ export async function handle({ event, resolve  }) {
                     event.locals.user = user
                 }catch(err){
                     console.log(err)
-                    redirect(303, '/login')
+                    if(event.url.pathname.includes('/admin')){
+                        redirect(303, '/login')
+                    }
                 }
             }else{
                 console.log('No user found!')
-                redirect(303, '/login')
+                if(event.url.pathname.includes('/admin')){
+                    redirect(303, '/login')
+                }
             }
         }else{
             if(event.url.pathname.includes('/admin')){

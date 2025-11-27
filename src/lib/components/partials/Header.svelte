@@ -27,13 +27,11 @@
     .Header {
         background: var(--background-dark);
         color: white;
-        padding: 0 50px;
     }
     .Header .inner{
         display: grid;
         grid-template-columns: 25% auto 20%;
         align-items: center;
-        padding: 5px 0;
     }
     .Header .inner .logo div {
         display: grid;
