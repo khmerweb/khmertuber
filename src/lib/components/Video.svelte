@@ -11,9 +11,9 @@ function setScreen(video,id,click){
     if(video['type'] == 'OK'){
         url = `//ok.ru/videoembed/${video['id']}`
     }else if(video['type'] == 'YouTube'){
-        url = `https://www.youtube.com/embed/${video['id']}`
+        url = `https://www.youtube.com/embed/${video['id']}?cc_load_policy=1&hl=es&cc_lang_pref=en`
     }else if(video['type'] == 'YouTubePlaylist'){
-        url = `https://www.youtube.com/embed/videoseries?list=${video['id']}`
+        url = `https://www.youtube.com/embed/videoseries?list=${video['id']}&cc_load_policy=1&cc_lang_pref=en`
     }else if(video['type'] === "Facebook"){
         url = `https://www.facebook.com/watch/?v=${video['id']}`
     }else if(video['type'] === "GoogleDrive"){

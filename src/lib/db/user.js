@@ -31,8 +31,7 @@ class User{
         await db.collection('User').insertOne(user)
     }
 
-    async checkUser(c, email){
-        const db = c.get('db')
+    async checkUser(email){
         return await db.collection('User').findOne({email})
     }
 
