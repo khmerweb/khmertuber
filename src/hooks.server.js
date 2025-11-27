@@ -23,6 +23,10 @@ export async function handle({ event, resolve  }) {
                 console.log('No user found!')
                 redirect(303, '/login')
             }
+        }else{
+            if(event.url.pathname.includes('/admin')){
+                redirect(303, '/login')
+            }
         }
     }
 
