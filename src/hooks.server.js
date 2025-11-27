@@ -23,8 +23,6 @@ export async function handle({ event, resolve  }) {
                 console.log('No user found!')
                 redirect(303, '/login')
             }
-        }else{
-            redirect(303, '/login')
         }
     }
 
