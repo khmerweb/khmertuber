@@ -1,0 +1,100 @@
+<script>
+    const {data} = $props()
+</script>
+
+<svelte:head>
+    <title>{ data.title }</title>
+</svelte:head>
+
+<section class="Header">
+    <div class="inner region">
+        <div class="logo">
+            <div>
+                <a href="/admin" aria-label="site logo"><img src="/images/siteLogo.png" alt="" /></a>
+                <span><a href="/admin">{data.settings.siteTitle}</a></span>
+            </div>
+        </div>
+        <form method="POST" action="/admin/search?/search">
+            <input type="text" name="q" placeholder="Search" />
+            <input type="submit" value="ស្វែងរក" />
+        </form>
+        <div class="login">
+            <a href="/user/{data.user.id}">{data.user.name}</a> | 
+            <a href="/">ទំព័រមុខ</a> | 
+            <a href="/admin/logout">ចេញ​ក្រៅ</a>
+        </div>
+    </div>
+<style>
+    .Header {
+        background: var(--background-dark);
+        color: white;
+        padding: 0 50px;
+    }
+    .Header .inner{
+        display: grid;
+        grid-template-columns: 25% auto 20%;
+        align-items: center;
+        padding: 5px 0;
+    }
+    .Header .inner .logo div {
+        display: grid;
+        grid-template-columns: 50px auto;
+        align-items: center;
+    }
+    .Header .inner .logo img {
+        width: 100%;
+        float: none;
+    }
+    .Header .inner .logo span a {
+        position: relative;
+        top: 5px;
+        color: white;
+        font: 30px/1.5 Limonf3;
+        padding-left: 5px;
+    }
+    .Header .inner form{
+        display: grid;
+        grid-template-columns: auto 100px;
+        align-items: center;
+    }
+    .Header .inner input{
+        font: var(--body-font);
+        padding: 2px 10px;
+        height: 30px;
+    }
+    .Header .inner .login{
+        text-align: right;
+    }
+    .Header .inner .login a{
+        color: white;
+    }
+
+    @media only screen and (max-width: 600px){
+        .Header {
+            padding: 0;
+        }
+        .Header .inner{
+            grid-template-columns: 100%;
+            text-align: center;
+            padding: 10px
+        }
+        .Header .inner .logo div {
+            grid-template-columns: 100%;
+            text-align: center;
+        }
+        .Header .inner .logo div img {
+            width: 50px;
+        }
+        .Header .inner form{
+            padding: 10px 0;
+        }
+        .Header .inner img{
+            float: none;
+            margin: 0 auto;
+        }
+        .Header .inner .login{
+            text-align: center;
+        }
+    }
+</style>
+</section>

@@ -72,6 +72,8 @@
         }
         jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
         jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
         player.part = 0
         if(player.playlist[player.part][0].type === "YouTubePlaylist"){
             player.loadVideoById(initialVideoId)
@@ -86,6 +88,8 @@
         }
         jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
         jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
     }
 
     function loadVideo(player, playlist){
@@ -164,6 +168,8 @@
         }else{
             jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
             jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
             player.part += 1
             if(player.part === player.playlist.length){
                 player.part = 0
@@ -182,6 +188,8 @@
             }
             jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
             jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
         }
     }
 
@@ -190,6 +198,8 @@
         if(event.data === YT.PlayerState.PLAYING){
             jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
             jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
             for(let pl in players){
                 if(pl !== playerID){
                     players[pl].stopVideo()
@@ -203,6 +213,8 @@
             }else{
                 jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
                 jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 player.part += 1
                 if(player.part === player.playlist.length){
                     if(player.playlist.category !== 'news'){
@@ -226,6 +238,8 @@
             }
             jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
             jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
         }
     }
 
@@ -238,6 +252,8 @@
             }else{
                 jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
                 jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 player.part += 1
                 if(player.part === player.playlist.length){
                     player.part = 0
@@ -256,6 +272,8 @@
                 }
                 jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
                 jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
             }
         }else if(move === "previous"){
             if(player.index > 0){
@@ -264,6 +282,8 @@
             }else{
                 jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
                 jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 player.part -= 1
                 if(player.part < 0){
                     player.part = player.playlist.length - 1
@@ -283,6 +303,8 @@
             }
             jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
             jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+            jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
         }
     }
 
@@ -522,6 +544,8 @@
         player.unMute()
         jq(`.${playerID} .playlist .item${player.part}`).css({'background':'none'})
         jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'none'})
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).html(player.part+1)
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
         player.part = part
         if(player.playlist[player.part][0].type === "YouTubePlaylist"){
             player.loadVideoById(initialVideoId)
@@ -536,6 +560,8 @@
         openPlaylist(playerID)
         jq(`.${playerID} .playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
         jq(`.${playerID} .playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.${playerID} .playlist .item${player.part} .play-icon`).css({'color':'red'})
     }
 
 </script>
@@ -555,6 +581,7 @@
             <div class="playlist">
                 {#each rawPlaylist.news as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('news', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -576,6 +603,7 @@
             <div class="playlist">
                 {#each rawPlaylist.movie as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('movie', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -597,6 +625,7 @@
             <div class="playlist">
                 {#each rawPlaylist.travel as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('travel', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -618,6 +647,7 @@
             <div class="playlist">
                 {#each rawPlaylist.doc as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('doc', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -639,6 +669,7 @@
             <div class="playlist">
                 {#each rawPlaylist.web as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('web', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -660,6 +691,7 @@
             <div class="playlist">
                 {#each rawPlaylist.sport as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('sport', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -681,6 +713,7 @@
             <div class="playlist">
                 {#each rawPlaylist.food as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('food', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -702,6 +735,7 @@
             <div class="playlist">
                 {#each rawPlaylist.music as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('music', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -723,6 +757,7 @@
             <div class="playlist">
                 {#each rawPlaylist.game as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('game', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -741,7 +776,8 @@
             <div class="channel-logo"><img src="/images/siteLogo.png" alt=''/></div>
             <div class="playlist">
                 {#each rawPlaylist.distraction as post, index}
-                <button class="item{index}" onclick={()=>changeVideo('distraction', index)} title="">
+                <button class="item{index} button" onclick={()=>changeVideo('distraction', index)} title="">
+                    <span class="play-icon">{index+1}</span>
                     <img src={post.thumb} alt='' />
                     <span>{post.title}</span>
                 </button>
@@ -812,7 +848,8 @@
     .player-wrapper .distraction .playlist button{
         all: unset;
         display: grid;
-        grid-template-columns: 25% auto;
+        grid-template-columns: 7px 25% auto;
+        align-items: center;
         grid-gap: 10px;
         padding: 5px 0;
         color: silver;
@@ -830,7 +867,18 @@
         background: rgb(39, 39, 39);
         cursor: pointer;
     }
-    
+    .player-wrapper .news .playlist button .play-icon,
+    .player-wrapper .movie .playlist button .play-icon,
+    .player-wrapper .travel .playlist button .play-icon,
+    .player-wrapper .doc .playlist button .play-icon,
+    .player-wrapper .web .playlist button .play-icon,
+    .player-wrapper .sport .playlist button .play-icon,
+    .player-wrapper .food .playlist button .play-icon,
+    .player-wrapper .music .playlist button .play-icon,
+    .player-wrapper .game .playlist button .play-icon,
+    .player-wrapper .distraction .playlist button .play-icon{
+        text-align: center;
+    }
     .player-wrapper .news .playlist button img,
     .player-wrapper .movie .playlist button img,
     .player-wrapper .travel .playlist button img,
@@ -893,7 +941,7 @@
         display: flex;
         justify-content: center;
         align-content: center;
-        gap: 15px;
+        gap: 10px;
     }
     
     .player-wrapper .play-news button, 

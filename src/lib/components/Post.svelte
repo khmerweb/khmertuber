@@ -170,11 +170,14 @@
     display: grid;
     grid-template-columns: auto auto; 
 }
+.Post .main .post-bottom .edit{
+    text-align: right;
+}
 .Post .main .post-bottom .edit a{
     padding: 0 3px 0 0;
 }
 .Post .main .post-bottom .edit img{
-    width: 30px;
+    width: 35px;
 }
 .Post .main .social-media{
     display: inline-block;

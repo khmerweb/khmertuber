@@ -1,8 +1,7 @@
 import db from "./database.js"
 
 class Session {
-    async count(c, query={}){
-        const db = c.get('db')
+    async count(query={}){
         return await db.collection('Session').countDocuments(query)
     }
 
@@ -17,7 +16,10 @@ class Session {
     }
 
     async getSession(ulid){
-        const session = await db.collection('Session').findOne({ ulid })
+        let session = await db.collection('Session').findOne({ ulid })
+        if(session){
+            session = {...session, _id: session._id.toString()}
+        }
         return session
     }
 

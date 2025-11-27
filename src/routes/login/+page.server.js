@@ -20,7 +20,7 @@ export const actions = {
         
         if(user){
             if(bcrypt.compareSync(password, user.password)){
-                const data = {id: user._id.toString(), role: user.role, name: user.title}
+                const data = {id: user._id, role: user.role, name: user.title}
                 const token = jwt.sign(data, SECRET_KEY, {expiresIn: "12h"})
                 const access_token = ulid()
                 await sessionDB.createSession(user, access_token, token)
@@ -37,8 +37,22 @@ export const actions = {
 	}
 }
 
-export async function load({ locals }) {
-    //await userDb.createRootUser(locals)
+export async function load({ locals, cookies }) {
+    //await userDB.createRootUser(locals)
+    const token = cookies.get('khmervideo_access_token')
+    if(token){
+        const session = await sessionDB.getSession(token)
+        if(session){
+            let user
+            try{
+                user = jwt.verify(session.jwt, SECRET_KEY)
+            }catch(err){
+                console.log(err)
+            }
+            if(user){redirect(303, '/admin')}
+        }
+    }
+    
     const title = 'login'
     return { title }
 }
