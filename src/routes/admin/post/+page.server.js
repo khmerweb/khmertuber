@@ -44,6 +44,9 @@ export const actions = {
         
 		if(validate){
             const post = {title, content, categories, thumb, date, videos, author}
+            if(categories.includes('news')){
+                post.createdAt = new Date()
+            }
             await postDB.createPost(post)
             return {success: true, message: 'ការផ្សាយ​មួយ​ត្រូវ​បាន​បង្កើត​ឡើង'}
         }else{
