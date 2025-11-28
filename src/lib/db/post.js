@@ -7,8 +7,7 @@ class Post{
         return await db.collection('Post').countDocuments(query)
     }
 
-    async createPost(c, post){
-        const db = c.get('db')
+    async createPost(post){
         return await db.collection('Post').insertOne(post)
     }
 
@@ -19,36 +18,26 @@ class Post{
         return post
     }
 
-    async getPosts(c, amount){
-        const db = c.get('db')
-        return await db.collection('Post').find().sort({ date: -1 }).limit(amount).toArray()
+    async getPosts(amount){
+        let posts = await db.collection('Post').find().sort({ date: -1 }).limit(amount).toArray()
+        posts = posts.map(post => ({...post, _id: post._id.toString()}))
+        return posts
     }
 
-    async updatePost(c, post){
-        const db = c.get('db')
-        const _id = new ObjectId(c.req.param("id"))
+    async updatePost(id, post){
+        const _id = new ObjectId(id)
         await db.collection('Post').updateOne({ _id }, {$set: post})
     }
 
-    async deletePost(c){
-        const db = c.get('db')
-        const _id = new ObjectId(c.req.param('id'))
+    async deletePost(id){
+        const _id = new ObjectId(id)
         await db.collection('Post').deleteOne({ _id })
     }
 
-    async paginatePosts(c, amount){
-        const db = c.get('db')
-        let page
-
-        if(c.req.param('page')){
-            page = parseInt(c.req.param('page'))
-        }else if(c.req.query('page')){
-            page = parseInt(c.req.query('page'))
-        }else{
-            page =  parseInt(c.get('navPage'))
-        }
-        
-        return await db.collection('Post').find().sort({ date: -1 }).skip((page-1)*amount).limit(amount).toArray()
+    async paginatePosts(page, amount){
+        let posts = await db.collection('Post').find().sort({ date: -1 }).skip((page-1)*amount).limit(amount).toArray()
+        posts = posts.map(post => ({...post, _id: post._id.toString()}))
+        return posts
     }
 
     async searchPosts(q, amount, page){

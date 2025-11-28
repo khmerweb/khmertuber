@@ -50,7 +50,7 @@
     
 </script>
 
-<section class="Post region" data-sveltekit-reload>
+<section class="Post region">
     <div class="main">
         <h3 class="title">{post.title}</h3>
         <div class="categories">

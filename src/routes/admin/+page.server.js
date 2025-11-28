@@ -1,10 +1,6 @@
-import setup from "$lib/settings.js"
+import { redirect } from '@sveltejs/kit'
 
 export async function load({ locals }){
-    const title = "ទំព័រ​គ្រប់គ្រង"
-    const settings = await setup()
-    const user = locals.user
-    
-
-    return { title, settings, user }
+    if(!locals.user){redirect(303, '/login')}
+    redirect(303, '/admin/post')
 }

@@ -570,7 +570,7 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 </svelte:head>
 
-<section class="main region" data-sveltekit-reload>
+<section class="main region">
     <div class="player-wrapper">
         <div class="news">
             <div id="news"></div>

@@ -10,7 +10,7 @@
         text-align: center;
         padding: 50px 0;
         background: var(--menu);
-        color: var(--color);
+        color: white;
     }
     .Footer .wrapper a{
         color: orange;
