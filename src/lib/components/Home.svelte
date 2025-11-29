@@ -1,4 +1,5 @@
 <script>
+    let visible = $state(false);
     import jq from "jquery"
     let { data } = $props()
     const laodingVideo = 'NcQQVbioeZk'
@@ -578,6 +579,7 @@
             <div class="channel-logo">
                 <img src="/images/siteLogo.png" alt=''/>
             </div>
+            
             <div class="playlist">
                 {#each rawPlaylist.news as post, index}
                 <button class="item{index}" onclick={()=>changeVideo('news', index)} title="">
@@ -587,6 +589,7 @@
                 </button>
                 {/each}
             </div>
+            
             <div class="play-news">
                 <button onclick={()=>nextPrevious('news','previous')} title=""><i class="fa fa-step-backward"></i></button>
                 <button onclick={()=>newPlaylist('news')} title="random playlist"><i class="fa fa-random"></i></button>

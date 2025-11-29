@@ -63,9 +63,6 @@
         {#if post.videos.length > 0}
             <Video {data} />
         {/if}
-        <div class="content">
-            {@html post.content}
-        </div>
         <div class='post-bottom'>
             <div class="social-media">
                 <Facebook class="share-button" quote={title} {url} />
@@ -82,6 +79,11 @@
             </span>
             {/if}
         </div>
+
+        <div class="content">
+            {@html post.content}
+        </div>
+        
         <div id="disqus_thread"></div>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
@@ -123,7 +125,7 @@
     padding-bottom: 0px;
 }
 .Post .main .content{
-    margin: 20px 0;
+    margin: 0 0 20px;
     font-size: 16px;
 }
 :global(.Post .main .content img){
@@ -168,6 +170,7 @@
     text-overflow: ellipsis;
 }
 .Post .main .post-bottom{
+    margin: 20px 0;
     display: grid;
     grid-template-columns: auto auto; 
 }
