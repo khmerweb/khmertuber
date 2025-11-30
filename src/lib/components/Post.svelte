@@ -3,7 +3,7 @@
     let { data } = $props()
     let post = $state(data.post)
     import { Email, HackerNews, Reddit, LinkedIn, Pinterest, Telegram, Tumblr, Vk, WhatsApp, Xing, Facebook, X, Line } from 'svelte-share-buttons-component'
-    const url = `https://khmervideo.vercel.app/post/${post._id}`
+    const url = `https://khmertuber.vercel.app/post/${post._id}`
 	const title = post.title;
 	const desc = 'Svelte based social media share buttons component with no tracking.'
     const Categories = {
@@ -36,7 +36,7 @@
 
     $effect(() => { 
         var disqus_config = function () {
-            this.page.url = `https://khmervideo.vercel.app/post/${post._id}`;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.url = `https://khmertuber.vercel.app/post/${post._id}`;  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = `${post._id}`; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
     
