@@ -152,7 +152,7 @@
         player.part = 0
         player.index = 0
         player.thumb = 1
-        player.label = 'news'
+        player.label = 'ព័ត៌មាន'
         player.playlist = latestNews 
         loadVideo(latestNews)
     }
