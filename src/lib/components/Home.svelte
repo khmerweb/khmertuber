@@ -111,7 +111,7 @@
 
     async function newPlaylist(event){
         player.unMute()
-        if(player.playlist.category !== 'latest'){
+        if(player.playlist.category !== 'news'){
             player.loadVideoById(laodingVideo)
             player.playlist = await getRandomPlaylist(player.playlist.category, player.playlist.thumbs) 
         }
@@ -152,7 +152,7 @@
         player.part = 0
         player.index = 0
         player.thumb = 1
-        player.label = 'ព័ត៌មាន'
+        player.label = 'ទំព័រ​ដើម'
         player.playlist = latestHome 
         loadVideo(latestHome )
     }
@@ -162,11 +162,7 @@
         if(label){player.label = label}
         if(playlist){player.playlist = playlist}
         pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
-        if(player.playlist.category === 'latest'){
-            category = 'news'
-        }else{
-            category = player.playlist.category
-        }
+        category = player.playlist.category
         /*
         if((player.playlist.category === 'latest') || (player.playlist.category === 'web')){
             jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
@@ -240,7 +236,7 @@
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
                 player.part += 1
                 if(player.part === player.playlist.length){
-                    if(player.playlist.category !== 'latest'){
+                    if(player.playlist.category !== 'news'){
                         player.loadVideoById(laodingVideo)
                         player.playlist = await getRandomPlaylist(player.playlist.category, player.playlist.thumbs)
                     }
