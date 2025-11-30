@@ -7,6 +7,7 @@ let home = $state('')
 let news = $state('')
 let opinion = $state('')
 let doc = $state('')
+let AI = $state('')
 let sport = $state('')
 let movie = $state('')
 let travel = $state('')
@@ -67,6 +68,7 @@ function myFunction() {
                 </div>
                 <a href="/opinion/1" class={`opinion ${opinion}`}>មតិ​យោបល់</a>
                 <a href="/doc/1" class={`doc ${doc}`}>ឯកសារ</a>
+                <a href="/AI/1" class={`AI ${AI}`}>បញ្ញា​សិប្បនិម្មិត</a>
                 <a href="/sport/1" class={`sport ${sport}`}>កីឡា</a>
                 <div class={`dropdown ${movie}`}>
                   <button class={`dropbtn ${movie}`}>ភាពយន្ត
