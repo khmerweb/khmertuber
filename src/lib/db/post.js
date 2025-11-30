@@ -60,15 +60,24 @@ class Post{
 
     async getLatestPostByCategory(categories_, amount){
         const posts = []
+        let query = ''
         
         for(const category of categories_){
             let items
             if(category === "news"){
                 items = await db.collection('Post').aggregate([{ $match : { $and: [{categories: { $regex: 'news' }}, { categories: {$not: { $regex: "unavailable" }} } ] }}, {$sort: {date: -1}}, { $limit: amount }])
-            } else {
+            }else if(category === "home"){
+                items = await db.collection('Post').aggregate([{ $match : { $and: [{videos: { $ne: "" }}, { categories: {$not: { $regex: "news" }} }, { categories: {$not: { $regex: "unavailable" }} } ] }}, { $sample:{ size: amount }}])
+            }else {
                 items = await db.collection('Post').aggregate([{ $match : { $and: [{categories: { $regex: category }}, {videos: { $ne: "" }}, { categories: {$not: { $regex: "unavailable" }} } ] }}, { $sample:{ size: amount }}])
             }
-            const query = { categories: { $regex: category }}
+
+            if(category === "home"){
+                query = { categories: {$not: { $regex: "news" }}}
+            }else{
+                query = { categories: { $regex: category }}
+            }
+            
             items = await items.toArray()
             items = items.map(post => ({...post, _id: post._id.toString()}))
             const count = await this.count(query)

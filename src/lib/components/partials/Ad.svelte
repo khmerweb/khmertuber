@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: repeat(2, auto);
     grid-gap: 15px;
-    padding-top: 0;
+    padding: 0;
 }
 .Ad img{
     width: 100%;
