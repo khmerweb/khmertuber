@@ -477,7 +477,7 @@
         grid-column: 2 / span 2;
         grid-row: 2 / span 2;
         position: relative;
-        padding-top: 53.50%;
+        padding-top: 53.25%;
     }
     .random-video button{
         position: relative;
