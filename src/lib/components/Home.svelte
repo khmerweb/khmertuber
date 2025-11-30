@@ -395,9 +395,9 @@
                 <p class="movies-label">{data.counts.web} គេហទំព័រ</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.AI, 'បញ្ញា​សិប្បនិម្មិត​​​​​', rawPlaylist.AI, 8)}>
+            <button onclick={()=>changeCategory(videoPlaylists.AI, 'បញ្ញា​និម្មិត​​​​​', rawPlaylist.AI, 8)}>
                 <img alt='' src={playlistThumbs.AI} />
-                <p class="movies-label">{data.counts.AI} បញ្ញា​សិប្បនិម្មិត</p>
+                <p class="movies-label">{data.counts.AI} បញ្ញា​និម្មិត</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 9)}>
