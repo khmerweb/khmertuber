@@ -67,7 +67,7 @@ class Post{
             if(category === "news"){
                 items = await db.collection('Post').aggregate([{ $match : { $and: [{categories: { $regex: 'news' }}, { categories: {$not: { $regex: "unavailable" }} } ] }}, {$sort: {date: -1}}, { $limit: amount }])
             }else if(category === "home"){
-                items = await db.collection('Post').aggregate([{ $match : { $and: [{videos: { $ne: "" }}, { categories: {$not: { $regex: "news" }} }, { categories: {$not: { $regex: "unavailable" }} } ] }}, { $sample:{ size: amount }}])
+                items = await db.collection('Post').aggregate([{ $match : { $and: [{videos: { $ne: "" }}, { categories: {$not: {$regex: "news" } } }, { categories: {$not: { $regex: "unavailable" }} } ] }}, { $sample:{ size: amount }}])
             }else {
                 items = await db.collection('Post').aggregate([{ $match : { $and: [{categories: { $regex: category }}, {videos: { $ne: "" }}, { categories: {$not: { $regex: "unavailable" }} } ] }}, { $sample:{ size: amount }}])
             }

@@ -153,7 +153,7 @@
         player.part = 0
         player.index = 0
         player.thumb = 1
-        player.label = 'ព័ត៌មាន'
+        player.label = 'ចំរុះ'
         player.playlist = latestNews 
         loadVideo(latestNews)
     }
@@ -359,9 +359,9 @@
 <section class="main region">
     <div class="feature-post">
         <div class="random-video">
-            <button  onclick={()=>changeCategory(videoPlaylists.home, 'ទំព័រ​ដើម​​​', rawPlaylist.home, 1)}>
+            <button  onclick={()=>changeCategory(videoPlaylists.home, 'ចំរុះ​', rawPlaylist.home, 1)}>
                 <img alt='' src={playlistThumbs.home} />
-                <p class="news-label">{data.counts.home} ទំព័រ​ដើម​​​</p>
+                <p class="news-label">{data.counts.home} ចំរុះ​​​</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             <button  onclick={()=>changeCategory(videoPlaylists.news, 'ព័ត៌មាន​​​', rawPlaylist.news, 2)}>
