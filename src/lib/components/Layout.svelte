@@ -16,6 +16,5 @@
     <Menu {data} />
     <img style='display:none;' src={data.thumb} alt='' />
     {@render children(data)}
-    <Ad />
     <Footer />
 </scetion>

@@ -646,7 +646,6 @@
         .random-video .wrapper{
             grid-column: 1 / span 1;
             grid-row: 1 / span 1;
-            padding-top: 56.25%;
         }
         .Home .container{
             grid-template-columns: 100%;
