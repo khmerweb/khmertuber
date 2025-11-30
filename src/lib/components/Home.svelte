@@ -638,7 +638,10 @@
         padding-bottom: 30px;
     }
     
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 768px){
+        .main{
+            padding: 0;
+        }
         .random-video{
             grid-template-columns: 100%;
             padding: 10px;
@@ -649,7 +652,7 @@
         }
         .Home .container{
             grid-template-columns: 100%;
-            padding: 30px 10px;
+            padding: 30px 0 10px;
         }
     }   
 </style>
