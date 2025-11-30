@@ -156,7 +156,7 @@
         player.playlist = latestNews 
         loadVideo(latestNews)
     }
-
+//
     function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
         if(obj){posts = obj}
         if(label){player.label = label}
