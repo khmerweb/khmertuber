@@ -142,8 +142,8 @@
             playlist[0].reversal = true
             player.loadVideoById(playlist[0][0].id)
         }
-        jq(`.random-video button:nth-child(1) img`).css({'filter':dark})
-        jq(`.random-video button:nth-child(1) .playing`).css({'display':'block'})
+        jq(`.random-video button:nth-child(2) img`).css({'filter':dark})
+        jq(`.random-video button:nth-child(2) .playing`).css({'display':'block'})
         jq('.Home .container .wrapper:nth-child(1) img').css({'filter':dark})
         jq('.Home .container .wrapper:nth-child(1) p').css({'display':'block'})
     }
@@ -152,9 +152,9 @@
         player.part = 0
         player.index = 0
         player.thumb = 1
-        player.label = 'ទំព័រ​ដើម'
-        player.playlist = latestHome 
-        loadVideo(latestHome )
+        player.label = 'news'
+        player.playlist = latestNews 
+        loadVideo(latestNews)
     }
 
     function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
