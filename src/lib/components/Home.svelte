@@ -3,11 +3,11 @@
     import jq from "jquery"
     let visible = $state(false);
     let { data } = $props()
-    let posts = $state(data.posts[10])
+    let posts = $state(data.posts[0])
     const dark = 'brightness(20%)'
     const normal = 'brightness(100%)'
     const laodingVideo = 'NcQQVbioeZk'
-    let pageAmount = $state(Math.ceil(data.counts.home/data.settings.frontend))
+    let pageAmount = $state(Math.ceil(data.counts.news/data.settings.frontend))
     let category = $state('news')
     
     function parseVideos(posts){
@@ -163,12 +163,7 @@
         if(playlist){player.playlist = playlist}
         pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
         category = player.playlist.category
-        /*
-        if((player.playlist.category === 'latest') || (player.playlist.category === 'web')){
-            jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
-            jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
-        }
-        */
+        
         if(thumb){
             jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
             jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
