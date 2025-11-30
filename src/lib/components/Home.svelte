@@ -156,7 +156,7 @@
         player.playlist = latestNews 
         loadVideo(latestNews)
     }
-//
+
     function changeCategory(playlist, label, obj=0, thumb=0, part=0) {
         if(obj){posts = obj}
         if(label){player.label = label}
@@ -421,7 +421,7 @@
             </button>
             <div class="wrapper">
                 <div id={ytPlayerId}></div>
-                <div class="latest-video">ទំព័រ​ដើម​​​</div>
+                <div class="latest-video">ព័ត៌មាន</div>
                 <div class="channel-logo">
                     <img src="/images/siteLogo.png" alt=''/>
                 </div>
