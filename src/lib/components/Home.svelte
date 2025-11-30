@@ -142,6 +142,7 @@
             playlist[0].reversal = true
             player.loadVideoById(playlist[0][0].id)
         }
+        player.thumb = 2
         jq(`.random-video button:nth-child(2) img`).css({'filter':dark})
         jq(`.random-video button:nth-child(2) .playing`).css({'display':'block'})
         jq('.Home .container .wrapper:nth-child(1) img').css({'filter':dark})
