@@ -958,7 +958,7 @@
     .player-wrapper .play-music button,
     .player-wrapper .play-game button,
     .player-wrapper .play-distraction button{
-        color: white;
+        color: orange;
         padding-top: 0;
         width: auto;
         background-color: transparent;
