@@ -477,13 +477,13 @@
         grid-column: 2 / span 2;
         grid-row: 2 / span 2;
         position: relative;
-        padding-top: 56.25%;
+        padding-top: 56%;
     }
     .random-video button{
         position: relative;
         width: 100%;
         height: 100%;
-        padding-top: 56.25%;
+        padding-top: 55.50%;
         border: none;
     }
     .random-video button:hover{
