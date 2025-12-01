@@ -41,8 +41,8 @@
     latestFood.category = 'food'
     let latestWeb = parseVideos(data.posts[9])
     latestWeb.category = 'web'
-    let latestHome = parseVideos(data.posts[10])
-    latestHome.category = 'home'
+    let latestAnimal = parseVideos(data.posts[10])
+    latestAnimal.category = 'animal'
     let latestAI = parseVideos(data.posts[11])
     latestAI.category = 'AI'
 
@@ -57,7 +57,7 @@
         music: data.posts[7],
         food: data.posts[8],
         web: data.posts[9],
-        home: data.posts[10],
+        animal: data.posts[10],
         AI: data.posts[11]
     })
 
@@ -72,7 +72,7 @@
         music: latestMusic,
         food: latestFood,
         web: latestWeb,
-        home: latestHome,
+        animal: latestAnimal,
         AI: latestAI
     })
 
@@ -87,7 +87,7 @@
         music: rawPlaylist['music'][0].thumb,
         food: rawPlaylist['food'][0].thumb,
         web: rawPlaylist['web'][0].thumb,
-        home: rawPlaylist['home'][0].thumb,
+        animal: rawPlaylist['animal'][0].thumb,
         AI: rawPlaylist['AI'][0].thumb,
     })
 
@@ -142,9 +142,9 @@
             playlist[0].reversal = true
             player.loadVideoById(playlist[0][0].id)
         }
-        player.thumb = 2
-        jq(`.random-video button:nth-child(2) img`).css({'filter':dark})
-        jq(`.random-video button:nth-child(2) .playing`).css({'display':'block'})
+        player.thumb = 1
+        jq(`.random-video button:nth-child(1) img`).css({'filter':dark})
+        jq(`.random-video button:nth-child(1) .playing`).css({'display':'block'})
         jq('.Home .container .wrapper:nth-child(1) img').css({'filter':dark})
         jq('.Home .container .wrapper:nth-child(1) p').css({'display':'block'})
     }
@@ -359,65 +359,65 @@
 <section class="main region">
     <div class="feature-post">
         <div class="random-video">
-            <button  onclick={()=>changeCategory(videoPlaylists.home, 'ចំរុះ​', rawPlaylist.home, 1)}>
-                <img alt='' src={playlistThumbs.home} />
-                <p class="news-label">{data.counts.home} ចំរុះ​​​</p>
-                <span class='playing'>កំពុង​លេង...</span>
-            </button>
-            <button  onclick={()=>changeCategory(videoPlaylists.news, 'ព័ត៌មាន​​​', rawPlaylist.news, 2)}>
+            <button  onclick={()=>changeCategory(videoPlaylists.news, 'ព័ត៌មាន​​​', rawPlaylist.news, 1)}>
                 <img alt='' src={playlistThumbs.news} />
                 <p class="news-label">{data.counts.news} ព័ត៌មាន​</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button  onclick={()=>changeCategory(videoPlaylists.movie, 'ភាពយន្ត​​​', rawPlaylist.movie, 3)}>
+            <button  onclick={()=>changeCategory(videoPlaylists.movie, 'ភាពយន្ត​​​', rawPlaylist.movie, 2)}>
                 <img alt='' src={playlistThumbs.movie} />
                 <p class="news-label">{data.counts.movie} ភាពយន្ត​</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.travel, 'ដើរ​លេង​​​​​', rawPlaylist.travel, 4)}>
+            <button onclick={()=>changeCategory(videoPlaylists.travel, 'ដើរ​លេង​​​​​', rawPlaylist.travel, 3)}>
                 <img alt='' src={playlistThumbs.travel} />
                 <p class="movies-label">{data.counts.travel} ដើរ​លេង</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             
-            <button onclick={()=>changeCategory(videoPlaylists.sport, '​កីឡា​​​', rawPlaylist.sport, 5)}>
+            <button onclick={()=>changeCategory(videoPlaylists.sport, '​កីឡា​​​', rawPlaylist.sport, 4)}>
                 <img alt='' src={playlistThumbs.sport} />
                 <p class="movies-label">{data.counts.sport} កីឡា</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.doc, '​ឯកសារ​​​​​', rawPlaylist.doc, 6)}>
+            <button onclick={()=>changeCategory(videoPlaylists.doc, '​ឯកសារ​​​​​', rawPlaylist.doc, 5)}>
                 <img alt='' src={playlistThumbs.doc} />
                 <p class="movies-label">{data.counts.doc} ឯកសារ</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.web, '​គេហទំព័រ​', rawPlaylist.web, 7)}>
+            <button onclick={()=>changeCategory(videoPlaylists.web, '​គេហទំព័រ​', rawPlaylist.web, 6)}>
                 <img alt='' src={playlistThumbs.web} />
                 <p class="movies-label">{data.counts.web} គេហទំព័រ</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.AI, 'បញ្ញា​និម្មិត​​​​​', rawPlaylist.AI, 8)}>
+            <button onclick={()=>changeCategory(videoPlaylists.AI, 'បញ្ញា​និម្មិត​​​​​', rawPlaylist.AI, 7)}>
                 <img alt='' src={playlistThumbs.AI} />
                 <p class="movies-label">{data.counts.AI} បញ្ញា​និម្មិត</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 9)}>
+            <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 8)}>
                 <img alt='' src={playlistThumbs.food} />
                 <p class="news-label">{data.counts.food} ​មុខ​ម្ហូប</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.music, 'របាំ​តន្ត្រី​​​​​', rawPlaylist.music, 10)}>
+            <button onclick={()=>changeCategory(videoPlaylists.music, 'របាំ​តន្ត្រី​​​​​', rawPlaylist.music, 9)}>
                 <img alt='' src={playlistThumbs.music} />
                 <p class="news-label">{data.counts.music} របាំ​តន្ត្រី</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.game, '​ពិភព​និម្មិត​', rawPlaylist.game, 11)}>
+            <button onclick={()=>changeCategory(videoPlaylists.game, '​ពិភព​និម្មិត​', rawPlaylist.game, 10)}>
                 <img alt='' src={playlistThumbs.game} />
                 <p class="movies-label">{data.counts.game} ពិភព​និម្មិត</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.distraction, 'ល្បែងកំសាន្ត​​​​', rawPlaylist.distraction, 12)}>
+            <button onclick={()=>changeCategory(videoPlaylists.distraction, 'ល្បែងកំសាន្ត​​​​', rawPlaylist.distraction, 11)}>
                 <img alt='' src={playlistThumbs.distraction} />
                 <p class="news-label">{data.counts.distraction} ល្បែងកំសាន្ត​</p>
+                <span class='playing'>កំពុង​លេង...</span>
+            </button>
+            <button  onclick={()=>changeCategory(videoPlaylists.animal, 'ពិភព​សត្វ', rawPlaylist.animal, 12)}>
+                <img alt='' src={playlistThumbs.animal} />
+                <p class="news-label">{data.counts.animal} ពិភព​សត្វ</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             <div class="wrapper">

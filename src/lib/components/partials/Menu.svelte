@@ -25,6 +25,8 @@ if(data.pageURL === '/'){
   opinion = 'active'
 }else if(data.pageURL === 'doc'){
     doc = 'active'
+}else if(data.pageURL === 'AI'){
+    AI = 'active'
 }else if(data.pageURL === 'sport'){
     sport = 'active'
 }else if(data.pageURL === 'movie'){
@@ -93,6 +95,7 @@ function myFunction() {
                     <a href="/food/1">មុខ​ម្ហូប</a>
                     <a href="/music/1">របាំតន្ត្រី</a>
                     <a href="/distraction/1">ល្បែង​កំសាន្ត</a>
+                    <a href="/animal/1">ពិភព​សត្វ</a>
                   </div>
                 </div>
                 <div class="dropdown {web}">

@@ -26,6 +26,8 @@ export async function load({ params }) {
         pageURL = 'opinion'
     }else if(category === 'doc'){
         pageURL = 'doc'
+    }else if(category === 'AI'){
+        pageURL = 'AI'
     }else if(category === 'sport'){
         pageURL = 'sport'
     }else if(category === 'Khmer'){
@@ -49,6 +51,8 @@ export async function load({ params }) {
     }else if(category === 'music'){
         pageURL = 'entertainment'
     }else if(category === 'distraction'){
+        pageURL = 'entertainment'
+    }else if(category === 'animal'){
         pageURL = 'entertainment'
     }else if(category === 'Node.js'){
         pageURL = 'web'
