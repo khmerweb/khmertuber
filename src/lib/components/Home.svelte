@@ -520,7 +520,7 @@
     }
     .random-video .latest-video{
         position: absolute;
-        top: 5px;
+        top: 7px;
         left: 10px;
         color: orange;
     }
