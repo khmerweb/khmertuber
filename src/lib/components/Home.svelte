@@ -164,7 +164,7 @@
         if(playlist){player.playlist = playlist}
         pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
         category = player.playlist.category
-        
+        //
         if(thumb){
             jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
             jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
