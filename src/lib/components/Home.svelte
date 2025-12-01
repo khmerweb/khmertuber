@@ -162,10 +162,10 @@
         if(obj){posts = obj}
         if(label){player.label = label}
         if(playlist){player.playlist = playlist}
-        pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
-        category = player.playlist.category
         
         if(thumb){
+            pageAmount = Math.ceil(data.counts[playlist.category]/data.settings.frontend)
+            category = player.playlist.category
             jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':normal})
             jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'none'})
             player.thumb = thumb
