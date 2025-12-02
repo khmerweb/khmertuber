@@ -339,7 +339,7 @@
             }
         })
     }
-        
+    //    
     $effect(() => {
         window.YT.ready(function() {
             if (window.YT) {
@@ -374,10 +374,9 @@
                 <p class="movies-label">{data.counts.travel} ដើរ​លេង</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            
-            <button onclick={()=>changeCategory(videoPlaylists.sport, '​កីឡា​​​', rawPlaylist.sport, 4)}>
-                <img alt='' src={playlistThumbs.sport} />
-                <p class="movies-label">{data.counts.sport} កីឡា</p>
+            <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 4)}>
+                <img alt='' src={playlistThumbs.food} />
+                <p class="news-label">{data.counts.food} ​មុខ​ម្ហូប</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             <button onclick={()=>changeCategory(videoPlaylists.doc, '​ឯកសារ​​​​​', rawPlaylist.doc, 5)}>
@@ -395,9 +394,9 @@
                 <p class="movies-label">{data.counts.AI} បញ្ញា​និម្មិត</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
-            <button onclick={()=>changeCategory(videoPlaylists.food, 'មុខ​ម្ហូប​​​​', rawPlaylist.food, 8)}>
-                <img alt='' src={playlistThumbs.food} />
-                <p class="news-label">{data.counts.food} ​មុខ​ម្ហូប</p>
+            <button onclick={()=>changeCategory(videoPlaylists.sport, '​កីឡា​​​', rawPlaylist.sport, 8)}>
+                <img alt='' src={playlistThumbs.sport} />
+                <p class="movies-label">{data.counts.sport} កីឡា</p>
                 <span class='playing'>កំពុង​លេង...</span>
             </button>
             <button onclick={()=>changeCategory(videoPlaylists.music, 'របាំ​តន្ត្រី​​​​​', rawPlaylist.music, 9)}>
