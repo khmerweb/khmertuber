@@ -30,6 +30,7 @@
         Rust: 'Rust',
         Go: 'Go',
         AI: 'បញ្ញា​និម្មិត',
+        animal: 'ពិភពសត្វ',
     }
 
     let postCategories = $state(data.post.categories.split(","))
