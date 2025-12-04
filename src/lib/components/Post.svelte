@@ -116,7 +116,7 @@
 .Post .main .title{
     font: 18px/1.5 Oswald, Koulen;
     margin-bottom: 20px;
-    color: orange;
+    color: skyblue;
 }
 .Post .main .categories span:nth-child(2){
     float: right;
