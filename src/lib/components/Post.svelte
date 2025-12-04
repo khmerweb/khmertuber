@@ -28,7 +28,8 @@
         "Node.js": 'Node.js',
         Python: 'Python',
         Rust: 'Rust',
-        Go: 'Go'
+        Go: 'Go',
+        AI: 'បញ្ញា​និម្មិត',
     }
 
     let postCategories = $state(data.post.categories.split(","))
