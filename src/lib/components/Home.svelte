@@ -339,7 +339,7 @@
             }
         })
     }
-    //    
+        
     $effect(() => {
         window.YT.ready(function() {
             if (window.YT) {
@@ -354,7 +354,6 @@
 <svelte:head>
     <script src="https://www.youtube.com/iframe_api"></script>
 </svelte:head>
-
 
 <section class="main region">
     <div class="feature-post">

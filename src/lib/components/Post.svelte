@@ -131,6 +131,9 @@
 :global(.Post .main .content img){
     width: 100%;
 }
+:global(.Post .main .content a){
+    color: orange;
+}
 .Post .sidebar a{
     display: block;
     color: white;
