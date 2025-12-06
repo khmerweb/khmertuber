@@ -7,7 +7,7 @@
 .Ad{
     display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-gap: 15px;
+    grid-gap: 10px;
     padding: 0;
 }
 .Ad img{

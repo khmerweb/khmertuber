@@ -478,9 +478,9 @@
 <style>
     .random-video{
         display: grid;
-        grid-template-columns: repeat(4, calc(25% - 11.25px));
-        grid-gap: 15px;
-        padding: 15px 0;
+        grid-template-columns: repeat(4, calc(25% - 7.5px));
+        grid-gap: 10px;
+        padding: 10px 0;
     }
     .random-video .wrapper{
         grid-column: 2 / span 2;
