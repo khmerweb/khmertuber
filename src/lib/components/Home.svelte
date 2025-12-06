@@ -349,6 +349,15 @@
             }
         })
     })
+
+    function openPlaylist(){
+        let result = jq(`.wrapper .playlist`).css('visibility')
+        if(result === "hidden"){
+            jq(`.wrapper .playlist`).css('visibility', 'visible')
+        }else if(result === "visible"){
+            jq(`.wrapper .playlist`).css('visibility', 'hidden')
+        }
+    }
 </script>
 
 <svelte:head>
@@ -424,6 +433,7 @@
                 <div class="channel-logo">
                     <img src="/images/siteLogo.png" alt=''/>
                 </div>
+
                 <div class="play-all">
                     <button onclick={()=>nextPrevious('previous')} title="previous video"><i class="fa fa-step-backward"></i></button>
                     <button onclick={newPlaylist} class='new-playlist' title="random playlist"><i class="fa fa-random"></i></button>
@@ -562,7 +572,7 @@
         height: 100%;
         padding: 0 !important;
     }
-
+    
     .Home .container{
         display: grid;
         grid-template-columns: repeat(4, calc(100% / 4 - 11.25px));

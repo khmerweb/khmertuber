@@ -37,6 +37,7 @@ export const actions = {
             typeof content === 'string' &&
             typeof categories === 'string' && categories !== '' &&
             typeof thumb === 'string' && thumb !== '' &&
+            typeof date === 'string' && date !== '' &&
             !isNaN(dateObj) &&
             typeof videos === 'string' &&
             typeof author === 'string' && author !== ''
