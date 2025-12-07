@@ -119,7 +119,7 @@
 		padding-right: 10px;
 	}
 	footer .items .item:hover{
-		grid-template-columns: 130px auto 75px;
+		grid-template-columns: 130px auto 90px;
 	}
 	footer .items .item .thumb{
 		position: relative;
@@ -155,7 +155,7 @@
     	float: right;
 	}
 	footer .items .item .edit img{
-		width: 30px;
+		width: 40px;
 	}
 	footer .items .item .edit img:hover{
 		cursor: pointer;
