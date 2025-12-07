@@ -115,6 +115,10 @@
             player.loadVideoById(laodingVideo)
             player.playlist = await getRandomPlaylist(player.playlist.category, player.playlist.thumbs) 
         }
+        jq(`.playlist .item${player.part}`).css({'background':'none'})
+        jq(`.playlist .item${player.part} img`).css({'border':'none'})
+        jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
         player.part = 0
@@ -129,7 +133,10 @@
             }
             player.loadVideoById(player.playlist[player.part][0].id)
         }
-        
+        jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+        jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
     }
@@ -147,6 +154,10 @@
         jq(`.random-video button:nth-child(1) .playing`).css({'display':'block'})
         jq('.Home .container .wrapper:nth-child(1) img').css({'filter':dark})
         jq('.Home .container .wrapper:nth-child(1) p').css({'display':'block'})
+        jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+        jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
     }
 
     function onPlayerReady(event) {
@@ -172,10 +183,15 @@
             jq(`.random-video button:nth-child(${player.thumb}) img`).css({'filter':dark})
             jq(`.random-video button:nth-child(${player.thumb}) .playing`).css({'display':'block'})
         }
+        jq(`.playlist .item${player.part}`).css({'background':'none'})
+        jq(`.playlist .item${player.part} img`).css({'border':'none'})
+        jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
         player.part = part
         player.unMute()
+        
         if(player.playlist[player.part][0].type === "YouTubePlaylist"){
             player.loadVideoById(initialVideoId)
             player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
@@ -189,6 +205,10 @@
             jq('.latest-video').html(player.label)
             
         }
+        jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+        jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
         jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
     }
@@ -198,6 +218,10 @@
             player.index += 1
             player.loadVideoById(player.playlist[player.part][player.index].id)
         }else{
+            jq(`.playlist .item${player.part}`).css({'background':'none'})
+            jq(`.playlist .item${player.part} img`).css({'border':'none'})
+            jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+            jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
             jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
             jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
             player.part += 1
@@ -216,6 +240,10 @@
                 }
                 player.loadVideoById(player.playlist[player.part][0].id)
             }
+            jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+            jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+            jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+            jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
             jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
             jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
         }
@@ -228,6 +256,10 @@
                 player.loadVideoById(player.playlist[player.part][player.index].id)
                 
             }else{
+                jq(`.playlist .item${player.part}`).css({'background':'none'})
+                jq(`.playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
                 player.part += 1
@@ -250,6 +282,10 @@
                     }
                     player.loadVideoById(player.playlist[player.part][0].id)
                 }
+                jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+                jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+                jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
             }
@@ -263,6 +299,10 @@
                 player.index += 1
                 player.loadVideoById(player.playlist[player.part][player.index].id)
             }else{
+                jq(`.playlist .item${player.part}`).css({'background':'none'})
+                jq(`.playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
                 player.part += 1
@@ -281,6 +321,10 @@
                     }
                     player.loadVideoById(player.playlist[player.part][0].id)
                 }
+                jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+                jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+                jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
             }
@@ -289,6 +333,10 @@
                 player.index -= 1
                 player.loadVideoById(player.playlist[player.part][player.index].id)
             }else{
+                jq(`.playlist .item${player.part}`).css({'background':'none'})
+                jq(`.playlist .item${player.part} img`).css({'border':'none'})
+                jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
                 player.part -= 1
@@ -307,6 +355,10 @@
                     }
                     player.loadVideoById(player.playlist[player.part][0].id)
                 }
+                jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+                jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+                jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+                jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
                 jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
             }
@@ -357,6 +409,34 @@
         }else if(result === "visible"){
             jq(`.wrapper .playlist`).css('visibility', 'hidden')
         }
+    }
+
+    function changeVideo(part){
+        player.unMute()
+        jq(`.playlist .item${player.part}`).css({'background':'none'})
+        jq(`.playlist .item${player.part} img`).css({'border':'none'})
+        jq(`.playlist .item${player.part} .play-icon`).html(player.part+1)
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'var(--color)'})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':normal})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'none'})
+        player.part = part
+        if(player.playlist[player.part][0].type === "YouTubePlaylist"){
+            player.loadVideoById(initialVideoId)
+            player.loadPlaylist({list:player.playlist[player.part][0].id,listType:'playlist',index:0})
+        }else{
+            if(!(player.playlist[player.part].reversal)){
+                player.playlist[player.part].reverse()
+                player.playlist[player.part].reversal = true
+            }
+            player.loadVideoById(player.playlist[player.part][0].id)
+        }
+        openPlaylist()
+        jq(`.playlist .item${player.part}`).css({'background':'rgb(53, 53, 53)'})
+        jq(`.playlist .item${player.part} img`).css({'border':'1px solid red'})
+        jq(`.playlist .item${player.part} .play-icon`).html('&#9654;')
+        jq(`.playlist .item${player.part} .play-icon`).css({'color':'red'})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) img`).css({'filter':dark})
+        jq(`.Home .container .wrapper:nth-child(${player.part+1}) p`).css({'display':'block'})
     }
 </script>
 
@@ -434,9 +514,20 @@
                     <img src="/images/siteLogo.png" alt=''/>
                 </div>
 
+                <div class="playlist">
+                    {#each posts as post, index}
+                    <div class="item{index} pbutton" onclick={()=>changeVideo(index)} title="">
+                        <span class="play-icon">{index+1}</span>
+                        <img src={post.thumb} alt='' />
+                        <span>{post.title}</span>
+                    </div>
+                    {/each}
+                </div>
+
                 <div class="play-all">
                     <button onclick={()=>nextPrevious('previous')} title="previous video"><i class="fa fa-step-backward"></i></button>
                     <button onclick={newPlaylist} class='new-playlist' title="random playlist"><i class="fa fa-random"></i></button>
+                    <button onclick={()=>openPlaylist()} title="playlist"><i class="fa fa-list" ></i></button>
                     <button onclick={()=>nextPrevious('next')} title="next video"><i class="fa fa-step-forward"></i></button>
                 </div>
             </div>
@@ -476,6 +567,37 @@
 </section>
 
 <style>
+    .random-video .playlist{
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-width: 430px;
+        max-height: 100%;
+        background: rgb(24, 24, 24);
+        padding: 5px;
+        visibility: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .random-video .playlist .pbutton{
+        display: grid;
+        grid-template-columns: 7px 25% auto;
+        align-items: center;
+        grid-gap: 10px;
+        padding: 5px 0;
+        color: silver;
+    }
+    .random-video .playlist .pbutton:hover{
+        background: rgb(39, 39, 39);
+        cursor: pointer;
+    }
+    .random-video .playlist .pbutton .play-icon{
+        text-align: center;
+    }
+    .random-video .playlist .pbutton img{
+        width: 100%;
+    }
+
     .random-video{
         display: grid;
         grid-template-columns: repeat(4, calc(25% - 7.5px));
@@ -516,6 +638,11 @@
         font-family: Vidaloka, OdorMeanChey;
         padding: 5px;
         min-width: 90px;
+    }
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
     }
     .random-video button .playing{
         position: absolute;
