@@ -4,7 +4,7 @@
     let visible = $state(false);
     let { data } = $props()
     let posts = $state(data.posts[0])
-    const dark = 'brightness(100%)'
+    const dark = 'brightness(50%)'
     const normal = 'brightness(100%)'
     const laodingVideo = 'NcQQVbioeZk'
     let pageAmount = $state(Math.ceil(data.counts.news/data.settings.frontend))
